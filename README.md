@@ -1,15 +1,12 @@
-# Fabric Example Mod
+# Vast Lands of The Middle Ages - Mod for Minecraft 1.14.4
 
-## Setup
+## Mod
+Graduation Project for SUAI.
 
-1. Edit build.gradle and mod.json to suit your needs.
-    * The "mixins" object can be removed from mod.json if you do not need to use mixins.
-    * Please replace all occurences of "modid" with your own mod ID - sometimes, a different string may also suffice.
-2. Run the following command:
-
-```
-./gradlew idea
-```
+Changes:
+   * Adding a new dimension;
+   * Replacing the vanilla generation of the world is an attempt to make continents, islands and oceans;
+   * Other decorations, but that later...
 
 ## License
 
