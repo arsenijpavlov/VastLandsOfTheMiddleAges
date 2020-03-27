@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "Riddick.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

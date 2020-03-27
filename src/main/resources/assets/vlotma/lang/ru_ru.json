@@ -1,0 +1,10 @@
+{
+  "item.vlotma.anchor": "§6Якорь телепорта",
+  "item.vlotma.TeleportAnchorItem.tooltip_1": "§9Измерение: %s",
+  "item.vlotma.TeleportAnchorItem.tooltip_2": "§9XYZ: %d %d %d",
+
+  "dimension-_nether_": "Незер (Ад)",
+  "dimension-_end_": "Край",
+  "dimension-_": "Ванильные дали",
+  "dimension-vlotma_dim_": "Обширные земли средневековья"
+}
