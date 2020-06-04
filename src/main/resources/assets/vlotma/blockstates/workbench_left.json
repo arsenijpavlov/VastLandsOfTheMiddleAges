@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "vlotma:block/workbench_left",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "vlotma:block/workbench_left",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "vlotma:block/workbench_left"
+    },
+    "facing=west": {
+      "model": "vlotma:block/workbench_left",
+      "y": 90
+    }
+  }
+}

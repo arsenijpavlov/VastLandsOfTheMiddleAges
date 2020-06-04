@@ -154,9 +154,9 @@ public class VlotmaDimension extends Dimension {
 
     /*
     public ChunkGenerator<? extends ChunkGeneratorConfig> createChunkGenerator() {
-        BiomeSourceType<VanillaLayeredBiomeSourceConfig, VanillaLayeredBiomeSource> biomeSourceType = BiomeSourceType.VANILLA_LAYERED;
+        BiomeSourceTypeMod<VanillaLayeredBiomeSourceConfig, VanillaLayeredBiomeSource> biomeSourceType = BiomeSourceTypeMod.VANILLA_LAYERED;
 
-        FixedBiomeSourceConfig fixedBiomeSourceConfig = BiomeSourceType.FIXED.getConfig(this.world.getLevelProperties()).setBiome(VLOTMA_DEFAULT);
+        FixedBiomeSourceConfig fixedBiomeSourceConfig = BiomeSourceTypeMod.FIXED.getConfig(this.world.getLevelProperties()).setBiome(VLOTMA_DEFAULT);
 
         BlockState blockState = Blocks.STONE_CASUAL.getDefaultState();
         BlockState blockState2 = Blocks.SEA.getDefaultState();
@@ -164,7 +164,7 @@ public class VlotmaDimension extends Dimension {
         VlotmaChunkGeneratorConfig vlotmaChunkGeneratorConfig = (VlotmaChunkGeneratorConfig) chunkGeneratorType.createSettings();
         vlotmaChunkGeneratorConfig.setDefaultBlock(blockState);
         vlotmaChunkGeneratorConfig.setDefaultFluid(blockState2);
-        return chunkGeneratorType.create(this.world, BiomeSourceType.FIXED.applyConfig(fixedBiomeSourceConfig), vlotmaChunkGeneratorConfig);
+        return chunkGeneratorType.create(this.world, BiomeSourceTypeMod.FIXED.applyConfig(fixedBiomeSourceConfig), vlotmaChunkGeneratorConfig);
     }
     */
 

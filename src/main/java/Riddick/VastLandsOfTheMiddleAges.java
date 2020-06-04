@@ -5,6 +5,7 @@ import Riddick.block.entity.BlockEntityTypeMod;
 import Riddick.fluid.Fluids;
 import Riddick.item.Items;
 import Riddick.world.biome.Biomes;
+import Riddick.world.biome.source.BiomeSourceTypeMod;
 import Riddick.world.dimension.DimensionType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
@@ -29,6 +30,7 @@ public class VastLandsOfTheMiddleAges implements ModInitializer {
         Blocks.onInitialize();
         Items.onInitialize();
         BlockEntityTypeMod.onInitialize();
+        BiomeSourceTypeMod.onInitialize();
         DimensionType.onInitialize();
 
         // adding the sprites to the block texture atlas

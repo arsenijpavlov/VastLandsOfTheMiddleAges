@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 import static Riddick.fluid.Fluids.SEA_STILL;
@@ -24,6 +25,15 @@ public class Blocks {
     public static final Block TELEPORT_UNIT_BLOCK = new TeleportatorCentralUnitBlock(FabricBlockSettings.of(Material.METAL).sounds(BlockSoundGroup.METAL).strength(65.0F, 15.0F).build());
     //вода
     public static FluidBlock SEA = new BaseFluidBlock(SEA_STILL, FabricBlockSettings.of(Material.WATER).dropsNothing().build());;
+    //наковальня
+    public static final Block ANVIL = new AnvilBlock(FabricBlockSettings.of(Material.ANVIL).strength(2.0F, 6.0F).sounds(BlockSoundGroup.ANVIL).build());
+
+    //public static final Block WORKBENCH = new WorkbenchRight(FabricBlockSettings.of(Material.WOOD).build());
+    public static final Block WORKBENCH_RIGHT = new WorkbenchRight(FabricBlockSettings.of(Material.WOOD).strength(1.0F,1.3F).sounds(BlockSoundGroup.WOOD).build());
+    public static final Block WORKBENCH_LEFT = new WorkbenchLeft(FabricBlockSettings.of(Material.WOOD).strength(1.0F,1.3F).sounds(BlockSoundGroup.WOOD).build(), Direction.NORTH);
+
+    public static final Block BARREL = new Barrel(FabricBlockSettings.of(Material.WOOD).strength(1.0F,1.3F).sounds(BlockSoundGroup.WOOD).build());
+    public static final Block BARREL_FULL = new Barrel(FabricBlockSettings.of(Material.WOOD).strength(1.0F,1.3F).sounds(BlockSoundGroup.WOOD).build());
 
     public static void onInitialize() {
         //генерация мира
@@ -46,5 +56,19 @@ public class Blocks {
         //SEA = new BaseFluidBlock(SEA_STILL, FabricBlockSettings.of(Material.WATER).dropsNothing().build());
         Registry.register(Registry.BLOCK, new Identifier("vlotma", "sea_block"), SEA);
                 /*new FluidBlock(SEA_STILL, FabricBlockSettings.copy(WATER).build()){});*/
+        //наковальня
+        Registry.register(Registry.BLOCK, new Identifier("vlotma", "anvil"), ANVIL);
+        Registry.register(Registry.ITEM, new Identifier("vlotma", "anvil"), new BlockItem(ANVIL, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        //верстак
+        Registry.register(Registry.BLOCK, new Identifier("vlotma", "workbench_right"), WORKBENCH_RIGHT);
+        //Registry.register(Registry.ITEM, new Identifier("vlotma", "workbench_right"), new BlockItem(WORKBENCH_RIGHT, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, new Identifier("vlotma", "workbench_left"), WORKBENCH_LEFT);
+        //Registry.register(Registry.ITEM, new Identifier("vlotma", "workbench_left"), new BlockItem(WORKBENCH_LEFT, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.ITEM, new Identifier("vlotma", "workbench"), new BlockItem(WORKBENCH_RIGHT, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        //бочка
+        Registry.register(Registry.BLOCK, new Identifier("vlotma", "barrel"), BARREL);
+        Registry.register(Registry.ITEM, new Identifier("vlotma", "barrel"), new BlockItem(BARREL, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        Registry.register(Registry.BLOCK, new Identifier("vlotma", "barrel_full"), BARREL_FULL);
+        Registry.register(Registry.ITEM, new Identifier("vlotma", "barrel_full"), new BlockItem(BARREL_FULL, new Item.Settings().group(ItemGroup.DECORATIONS)));
     }
 }

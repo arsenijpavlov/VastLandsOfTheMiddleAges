@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "vlotma:block/anvil",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "vlotma:block/anvil",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "vlotma:block/anvil"
+    },
+    "facing=west": {
+      "model": "vlotma:block/anvil",
+      "y": 90
+    }
+  }
+}
