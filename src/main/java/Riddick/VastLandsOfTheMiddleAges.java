@@ -3,10 +3,12 @@ package Riddick;
 import Riddick.block.Blocks;
 import Riddick.block.entity.BlockEntityTypeMod;
 import Riddick.fluid.Fluids;
+import Riddick.item.ItemGroupMod;
 import Riddick.item.Items;
-import Riddick.world.biome.Biomes;
+import Riddick.world.biome.VlotmaBiomes;
 import Riddick.world.biome.source.BiomeSourceTypeMod;
 import Riddick.world.dimension.DimensionType;
+import Riddick.world.gen.chunk.ChunkGeneratorTypeMod;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -18,6 +20,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ExtendedBlockView;
+import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
 import static Riddick.fluid.Fluids.SEA_FLOWING;
 import static Riddick.fluid.Fluids.SEA_STILL;
@@ -27,10 +30,13 @@ public class VastLandsOfTheMiddleAges implements ModInitializer {
     @Override
     public void onInitialize() {
         Fluids.onInitialize();
+        ItemGroupMod.onInitialize();
         Blocks.onInitialize();
         Items.onInitialize();
         BlockEntityTypeMod.onInitialize();
         BiomeSourceTypeMod.onInitialize();
+        VlotmaBiomes.onInitialize();
+        ChunkGeneratorTypeMod.onInitialize();
         DimensionType.onInitialize();
 
         // adding the sprites to the block texture atlas

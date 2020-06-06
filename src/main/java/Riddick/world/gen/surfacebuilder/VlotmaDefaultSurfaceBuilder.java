@@ -18,9 +18,7 @@ public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceCo
     public static final BlockState EARTH;
     public static final BlockState STONE_CASUAL;
     public static final BlockState GRAVEL;
-
     public static final TernarySurfaceConfig DEFAULT_VLOTMA_CONFIG;
-
     public static final SurfaceBuilder<TernarySurfaceConfig> DEFAULT_VLOTMA;
 
     public VlotmaDefaultSurfaceBuilder(Function<Dynamic<?>, ? extends TernarySurfaceConfig> function) {

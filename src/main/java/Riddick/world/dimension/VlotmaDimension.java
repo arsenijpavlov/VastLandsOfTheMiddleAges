@@ -2,40 +2,34 @@ package Riddick.world.dimension;
 
 import Anno.Nullable;
 import Riddick.block.Blocks;
+import Riddick.world.biome.source.VlotmaLayeredBiomeSourceConfig;
+import Riddick.world.gen.chunk.VlotmaChunkGenerator;
 import Riddick.world.gen.chunk.VlotmaChunkGeneratorConfig;
 import Riddick.world.gen.chunk.VlotmaChunkGeneratorType;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.JsonOps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.datafixers.NbtOps;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.biome.source.*;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.BiomeSourceType;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.gen.chunk.*;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
+import net.minecraft.world.gen.chunk.ChunkGeneratorType;
 import net.minecraft.world.level.LevelGeneratorType;
 
-import static net.minecraft.block.Blocks.STONE;
+import static Riddick.world.biome.source.BiomeSourceTypeMod.VLOTMA_TYPE;
+import static Riddick.world.gen.chunk.ChunkGeneratorTypeMod.VLOTMA_SURFACE;
 import static net.minecraft.block.Blocks.WATER;
-
-//import static Riddick.world.biome.Biomes.VLOTMA_DEFAULT;
 
 public class VlotmaDimension extends Dimension {
     public static final ChunkGeneratorType chunkGeneratorType = new VlotmaChunkGeneratorType().getChunkGeneratorType(ChunkGeneratorConfig::new);
@@ -48,125 +42,24 @@ public class VlotmaDimension extends Dimension {
         return Riddick.world.dimension.DimensionType.VLOTMA;
     }
 
-
     public ChunkGenerator<? extends ChunkGeneratorConfig> createChunkGenerator() {
         LevelGeneratorType levelGeneratorType = this.world.getLevelProperties().getGeneratorType();
-        ChunkGeneratorType<FlatChunkGeneratorConfig, FlatChunkGenerator> chunkGeneratorType = ChunkGeneratorType.FLAT;
-        ChunkGeneratorType<DebugChunkGeneratorConfig, DebugChunkGenerator> chunkGeneratorType2 = ChunkGeneratorType.DEBUG;
-        ChunkGeneratorType<CavesChunkGeneratorConfig, CavesChunkGenerator> chunkGeneratorType3 = ChunkGeneratorType.CAVES;
-        ChunkGeneratorType<FloatingIslandsChunkGeneratorConfig, FloatingIslandsChunkGenerator> chunkGeneratorType4 = ChunkGeneratorType.FLOATING_ISLANDS;
-        ChunkGeneratorType<OverworldChunkGeneratorConfig, OverworldChunkGenerator> chunkGeneratorType5 = ChunkGeneratorType.SURFACE;
-        BiomeSourceType<FixedBiomeSourceConfig, FixedBiomeSource> biomeSourceType = BiomeSourceType.FIXED;
-        BiomeSourceType<VanillaLayeredBiomeSourceConfig, VanillaLayeredBiomeSource> biomeSourceType2 = BiomeSourceType.VANILLA_LAYERED;
-        BiomeSourceType<CheckerboardBiomeSourceConfig, CheckerboardBiomeSource> biomeSourceType3 = BiomeSourceType.CHECKERBOARD;
-        if (levelGeneratorType == LevelGeneratorType.FLAT) {
-            FlatChunkGeneratorConfig flatChunkGeneratorConfig = FlatChunkGeneratorConfig.fromDynamic(new Dynamic(NbtOps.INSTANCE, this.world.getLevelProperties().getGeneratorOptions()));
-            FixedBiomeSourceConfig fixedBiomeSourceConfig = ((FixedBiomeSourceConfig)biomeSourceType.getConfig()).setBiome(flatChunkGeneratorConfig.getBiome());
-            return chunkGeneratorType.create(this.world, biomeSourceType.applyConfig(fixedBiomeSourceConfig), flatChunkGeneratorConfig);
-        } else if (levelGeneratorType == LevelGeneratorType.DEBUG_ALL_BLOCK_STATES) {
-            FixedBiomeSourceConfig fixedBiomeSourceConfig2 = ((FixedBiomeSourceConfig)biomeSourceType.getConfig()).setBiome(Biomes.PLAINS);
-            return chunkGeneratorType2.create(this.world, biomeSourceType.applyConfig(fixedBiomeSourceConfig2), chunkGeneratorType2.createSettings());
-        } else if (levelGeneratorType != LevelGeneratorType.BUFFET) {
-            OverworldChunkGeneratorConfig overworldChunkGeneratorConfig2 = (OverworldChunkGeneratorConfig)chunkGeneratorType5.createSettings();
-            VanillaLayeredBiomeSourceConfig vanillaLayeredBiomeSourceConfig2 = ((VanillaLayeredBiomeSourceConfig)biomeSourceType2.getConfig()).setLevelProperties(this.world.getLevelProperties()).setGeneratorSettings(overworldChunkGeneratorConfig2);
-            return chunkGeneratorType5.create(this.world, biomeSourceType2.applyConfig(vanillaLayeredBiomeSourceConfig2), overworldChunkGeneratorConfig2);
-        } else {
-            BiomeSource biomeSource = null;
-            JsonElement jsonElement = (JsonElement)Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, this.world.getLevelProperties().getGeneratorOptions());
-            JsonObject jsonObject = jsonElement.getAsJsonObject();
-            JsonObject jsonObject2 = jsonObject.getAsJsonObject("biome_source");
-            if (jsonObject2 != null && jsonObject2.has("type") && jsonObject2.has("options")) {
-                BiomeSourceType<?, ?> biomeSourceType4 = (BiomeSourceType)Registry.BIOME_SOURCE_TYPE.get(new Identifier(jsonObject2.getAsJsonPrimitive("type").getAsString()));
-                JsonObject jsonObject3 = jsonObject2.getAsJsonObject("options");
-                Biome[] biomes = new Biome[]{Biomes.OCEAN};
-                if (jsonObject3.has("biomes")) {
-                    JsonArray jsonArray = jsonObject3.getAsJsonArray("biomes");
-                    biomes = jsonArray.size() > 0 ? new Biome[jsonArray.size()] : new Biome[]{Biomes.OCEAN};
+        ChunkGeneratorType<VlotmaChunkGeneratorConfig, VlotmaChunkGenerator> chunkGeneratorType = VLOTMA_SURFACE;
+        BiomeSourceType biomeSourceType = VLOTMA_TYPE;
 
-                    for(int i = 0; i < jsonArray.size(); ++i) {
-                        biomes[i] = (Biome) Registry.BIOME.getOrEmpty(new Identifier(jsonArray.get(i).getAsString())).orElse(Biomes.OCEAN);
-                    }
-                }
-
-                if (BiomeSourceType.FIXED == biomeSourceType4) {
-                    FixedBiomeSourceConfig fixedBiomeSourceConfig3 = ((FixedBiomeSourceConfig)biomeSourceType.getConfig()).setBiome(biomes[0]);
-                    biomeSource = biomeSourceType.applyConfig(fixedBiomeSourceConfig3);
-                }
-
-                if (BiomeSourceType.CHECKERBOARD == biomeSourceType4) {
-                    int j = jsonObject3.has("size") ? jsonObject3.getAsJsonPrimitive("size").getAsInt() : 2;
-                    CheckerboardBiomeSourceConfig checkerboardBiomeSourceConfig = ((CheckerboardBiomeSourceConfig)biomeSourceType3.getConfig()).method_8777(biomes).method_8780(j);
-                    biomeSource = biomeSourceType3.applyConfig(checkerboardBiomeSourceConfig);
-                }
-
-                if (BiomeSourceType.VANILLA_LAYERED == biomeSourceType4) {
-                    VanillaLayeredBiomeSourceConfig vanillaLayeredBiomeSourceConfig = ((VanillaLayeredBiomeSourceConfig)biomeSourceType2.getConfig()).setGeneratorSettings(new OverworldChunkGeneratorConfig()).setLevelProperties(this.world.getLevelProperties());
-                    biomeSource = biomeSourceType2.applyConfig(vanillaLayeredBiomeSourceConfig);
-                }
-            }
-
-            if (biomeSource == null) {
-                biomeSource = biomeSourceType.applyConfig(((FixedBiomeSourceConfig)biomeSourceType.getConfig()).setBiome(Biomes.OCEAN));
-            }
-
-            BlockState blockState = STONE.getDefaultState();
-            BlockState blockState2 = WATER.getDefaultState();
-            JsonObject jsonObject4 = jsonObject.getAsJsonObject("chunk_generator");
-            if (jsonObject4 != null && jsonObject4.has("options")) {
-                JsonObject jsonObject5 = jsonObject4.getAsJsonObject("options");
-                String string2;
-                if (jsonObject5.has("default_block")) {
-                    string2 = jsonObject5.getAsJsonPrimitive("default_block").getAsString();
-                    blockState = ((Block)Registry.BLOCK.get(new Identifier(string2))).getDefaultState();
-                }
-
-                if (jsonObject5.has("default_fluid")) {
-                    string2 = jsonObject5.getAsJsonPrimitive("default_fluid").getAsString();
-                    blockState2 = ((Block)Registry.BLOCK.get(new Identifier(string2))).getDefaultState();
-                }
-            }
-
-            if (jsonObject4 != null && jsonObject4.has("type")) {
-                ChunkGeneratorType<?, ?> chunkGeneratorType6 = (ChunkGeneratorType)Registry.CHUNK_GENERATOR_TYPE.get(new Identifier(jsonObject4.getAsJsonPrimitive("type").getAsString()));
-                if (ChunkGeneratorType.CAVES == chunkGeneratorType6) {
-                    CavesChunkGeneratorConfig cavesChunkGeneratorConfig = (CavesChunkGeneratorConfig)chunkGeneratorType3.createSettings();
-                    cavesChunkGeneratorConfig.setDefaultBlock(blockState);
-                    cavesChunkGeneratorConfig.setDefaultFluid(blockState2);
-                    return chunkGeneratorType3.create(this.world, biomeSource, cavesChunkGeneratorConfig);
-                }
-
-                if (ChunkGeneratorType.FLOATING_ISLANDS == chunkGeneratorType6) {
-                    FloatingIslandsChunkGeneratorConfig floatingIslandsChunkGeneratorConfig = (FloatingIslandsChunkGeneratorConfig)chunkGeneratorType4.createSettings();
-                    floatingIslandsChunkGeneratorConfig.withCenter(new BlockPos(0, 64, 0));
-                    floatingIslandsChunkGeneratorConfig.setDefaultBlock(blockState);
-                    floatingIslandsChunkGeneratorConfig.setDefaultFluid(blockState2);
-                    return chunkGeneratorType4.create(this.world, biomeSource, floatingIslandsChunkGeneratorConfig);
-                }
-            }
-
-            OverworldChunkGeneratorConfig overworldChunkGeneratorConfig = (OverworldChunkGeneratorConfig)chunkGeneratorType5.createSettings();
-            overworldChunkGeneratorConfig.setDefaultBlock(blockState);
-            overworldChunkGeneratorConfig.setDefaultFluid(blockState2);
-            return chunkGeneratorType5.create(this.world, biomeSource, overworldChunkGeneratorConfig);
-        }
-    }
-
-
-    /*
-    public ChunkGenerator<? extends ChunkGeneratorConfig> createChunkGenerator() {
-        BiomeSourceTypeMod<VanillaLayeredBiomeSourceConfig, VanillaLayeredBiomeSource> biomeSourceType = BiomeSourceTypeMod.VANILLA_LAYERED;
-
-        FixedBiomeSourceConfig fixedBiomeSourceConfig = BiomeSourceTypeMod.FIXED.getConfig(this.world.getLevelProperties()).setBiome(VLOTMA_DEFAULT);
+        VlotmaLayeredBiomeSourceConfig biomeSourceConfig = ((VlotmaLayeredBiomeSourceConfig)biomeSourceType.getConfig())
+                .setGeneratorSettings(new VlotmaChunkGeneratorConfig()).setLevelProperties(this.world.getLevelProperties());
+        BiomeSource biomeSource = biomeSourceType.applyConfig(biomeSourceConfig);
 
         BlockState blockState = Blocks.STONE_CASUAL.getDefaultState();
-        BlockState blockState2 = Blocks.SEA.getDefaultState();
+        BlockState blockState2 = WATER.getDefaultState();
 
-        VlotmaChunkGeneratorConfig vlotmaChunkGeneratorConfig = (VlotmaChunkGeneratorConfig) chunkGeneratorType.createSettings();
+        VlotmaChunkGeneratorConfig vlotmaChunkGeneratorConfig = chunkGeneratorType.createSettings();
         vlotmaChunkGeneratorConfig.setDefaultBlock(blockState);
         vlotmaChunkGeneratorConfig.setDefaultFluid(blockState2);
-        return chunkGeneratorType.create(this.world, BiomeSourceTypeMod.FIXED.applyConfig(fixedBiomeSourceConfig), vlotmaChunkGeneratorConfig);
+        return chunkGeneratorType.create(this.world, biomeSource, vlotmaChunkGeneratorConfig);
     }
-    */
+
 
     @Nullable
     public BlockPos getSpawningBlockInChunk(ChunkPos chunkPos, boolean checkMobSpawnValidity) {
