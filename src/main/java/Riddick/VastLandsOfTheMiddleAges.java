@@ -20,7 +20,6 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ExtendedBlockView;
-import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
 import static Riddick.fluid.Fluids.SEA_FLOWING;
 import static Riddick.fluid.Fluids.SEA_STILL;
@@ -34,9 +33,9 @@ public class VastLandsOfTheMiddleAges implements ModInitializer {
         Blocks.onInitialize();
         Items.onInitialize();
         BlockEntityTypeMod.onInitialize();
-        BiomeSourceTypeMod.onInitialize();
-        VlotmaBiomes.onInitialize();
         ChunkGeneratorTypeMod.onInitialize();
+        VlotmaBiomes.onInitialize();
+        BiomeSourceTypeMod.onInitialize();
         DimensionType.onInitialize();
 
         // adding the sprites to the block texture atlas

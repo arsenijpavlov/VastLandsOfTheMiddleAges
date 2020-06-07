@@ -1,8 +1,9 @@
 package Riddick.world.gen.chunk;
 
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
+import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 
-public class VlotmaChunkGeneratorConfig extends ChunkGeneratorConfig {
+public class VlotmaChunkGeneratorConfig extends OverworldChunkGeneratorConfig {
     private final int field_13224 = 16;
     private final int field_13223 = 24;
     private final int field_13222 = -1;

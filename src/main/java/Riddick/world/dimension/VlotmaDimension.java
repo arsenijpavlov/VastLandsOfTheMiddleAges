@@ -2,18 +2,26 @@ package Riddick.world.dimension;
 
 import Anno.Nullable;
 import Riddick.block.Blocks;
+import Riddick.world.biome.source.VlotmaLayeredBiomeSource;
 import Riddick.world.biome.source.VlotmaLayeredBiomeSourceConfig;
 import Riddick.world.gen.chunk.VlotmaChunkGenerator;
 import Riddick.world.gen.chunk.VlotmaChunkGeneratorConfig;
-import Riddick.world.gen.chunk.VlotmaChunkGeneratorType;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mojang.datafixers.Dynamic;
+import com.mojang.datafixers.types.JsonOps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.datafixers.NbtOps;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -25,14 +33,14 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
-import net.minecraft.world.level.LevelGeneratorType;
 
+import static Riddick.world.biome.VlotmaBiomes.VLOTMA_OCEAN;
 import static Riddick.world.biome.source.BiomeSourceTypeMod.VLOTMA_TYPE;
 import static Riddick.world.gen.chunk.ChunkGeneratorTypeMod.VLOTMA_SURFACE;
 import static net.minecraft.block.Blocks.WATER;
 
 public class VlotmaDimension extends Dimension {
-    public static final ChunkGeneratorType chunkGeneratorType = new VlotmaChunkGeneratorType().getChunkGeneratorType(ChunkGeneratorConfig::new);
+    //public static final ChunkGeneratorType chunkGeneratorType = new VlotmaChunkGeneratorType().getChunkGeneratorType(ChunkGeneratorConfig::new);
 
     public VlotmaDimension(World world, DimensionType dimensionType){
         super(world, dimensionType);
@@ -43,23 +51,39 @@ public class VlotmaDimension extends Dimension {
     }
 
     public ChunkGenerator<? extends ChunkGeneratorConfig> createChunkGenerator() {
-        LevelGeneratorType levelGeneratorType = this.world.getLevelProperties().getGeneratorType();
         ChunkGeneratorType<VlotmaChunkGeneratorConfig, VlotmaChunkGenerator> chunkGeneratorType = VLOTMA_SURFACE;
-        BiomeSourceType biomeSourceType = VLOTMA_TYPE;
+        BiomeSourceType<VlotmaLayeredBiomeSourceConfig, VlotmaLayeredBiomeSource> biomeSourceType = VLOTMA_TYPE;
 
-        VlotmaLayeredBiomeSourceConfig biomeSourceConfig = ((VlotmaLayeredBiomeSourceConfig)biomeSourceType.getConfig())
+        VlotmaLayeredBiomeSourceConfig biomeSourceConfig = biomeSourceType.getConfig()
                 .setGeneratorSettings(new VlotmaChunkGeneratorConfig()).setLevelProperties(this.world.getLevelProperties());
         BiomeSource biomeSource = biomeSourceType.applyConfig(biomeSourceConfig);
 
         BlockState blockState = Blocks.STONE_CASUAL.getDefaultState();
         BlockState blockState2 = WATER.getDefaultState();
 
+        /*
+        JsonObject jsonObject_4 = jsonObject_1.getAsJsonObject("chunk_generator");
+        if (jsonObject_4 != null && jsonObject_4.has("options")) {
+            BiomeSourceType<?, ?> biomeSourceType_4 = Registry.BIOME_SOURCE_TYPE.get(new Identifier(jsonObject_2.getAsJsonPrimitive("type").getAsString()));
+            JsonObject jsonObject_5 = jsonObject_4.getAsJsonObject("options");
+            String string;
+            if (jsonObject_5.has("default_block")) {
+                string = jsonObject_5.getAsJsonPrimitive("default_block").getAsString();
+                blockState = Registry.BLOCK.get(new Identifier(string)).getDefaultState();
+            }
+
+            if (jsonObject_5.has("default_fluid")) {
+                string = jsonObject_5.getAsJsonPrimitive("default_fluid").getAsString();
+                blockState = Registry.BLOCK.get(new Identifier(string)).getDefaultState();
+            }
+        }
+        */
+
         VlotmaChunkGeneratorConfig vlotmaChunkGeneratorConfig = chunkGeneratorType.createSettings();
         vlotmaChunkGeneratorConfig.setDefaultBlock(blockState);
         vlotmaChunkGeneratorConfig.setDefaultFluid(blockState2);
         return chunkGeneratorType.create(this.world, biomeSource, vlotmaChunkGeneratorConfig);
     }
-
 
     @Nullable
     public BlockPos getSpawningBlockInChunk(ChunkPos chunkPos, boolean checkMobSpawnValidity) {

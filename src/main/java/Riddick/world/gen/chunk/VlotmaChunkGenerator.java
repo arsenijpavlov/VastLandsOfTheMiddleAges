@@ -23,27 +23,22 @@ import net.minecraft.world.level.LevelGeneratorType;
 import java.util.List;
 
 public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGeneratorConfig> {
-    private static final float[] BIOME_WEIGHT_TABLE = (float[]) SystemUtil.consume(new float[25], (fs) -> {
+    private static final float[] BIOME_WEIGHT_TABLE = SystemUtil.consume(new float[25], (fs) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {
                 float f = 10.0F / MathHelper.sqrt((float)(i * i + j * j) + 0.2F);
                 fs[i + 2 + (j + 2) * 5] = f;
             }
         }
-
     });
     private final OctavePerlinNoiseSampler noiseSampler;
     private final boolean amplified;
-    private final PhantomSpawner phantomSpawner = new PhantomSpawner();
-    private final PillagerSpawner pillagerSpawner = new PillagerSpawner();
-    private final CatSpawner catSpawner = new CatSpawner();
-    private final ZombieSiegeManager zombieSiegeManager = new ZombieSiegeManager();
 
     public VlotmaChunkGenerator(IWorld world, BiomeSource biomeSource, VlotmaChunkGeneratorConfig config) {
         super(world, biomeSource, 4, 8, 256, config, true);
         this.random.consume(2620);
         this.noiseSampler = new OctavePerlinNoiseSampler(this.random, 16);
-        this.amplified = world.getLevelProperties().getGeneratorType() == LevelGeneratorType.AMPLIFIED;
+        this.amplified = world.getLevelProperties().getGeneratorType() == LevelGeneratorType.DEFAULT;
     }
 
     public void populateEntities(ChunkRegion region) {
@@ -133,7 +128,7 @@ public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGener
         return d;
     }
 
-    public List<Biome.SpawnEntry> getEntitySpawnList(EntityCategory category, BlockPos pos) {
+    /*public List<Biome.SpawnEntry> getEntitySpawnList(EntityCategory category, BlockPos pos) {
         if (Feature.SWAMP_HUT.method_14029(this.world, pos)) {
             if (category == EntityCategory.MONSTER) {
                 return Feature.SWAMP_HUT.getMonsterSpawns();
@@ -153,13 +148,9 @@ public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGener
         }
 
         return super.getEntitySpawnList(category, pos);
-    }
+    }*/
 
     public void spawnEntities(ServerWorld serverWorld, boolean spawnMonsters, boolean spawnAnimals) {
-        //this.phantomSpawner.spawn(serverWorld, spawnMonsters, spawnAnimals);
-        this.pillagerSpawner.spawn(serverWorld, spawnMonsters, spawnAnimals);
-        //this.catSpawner.spawn(serverWorld, spawnMonsters, spawnAnimals);
-        this.zombieSiegeManager.tick(serverWorld, spawnMonsters, spawnAnimals);
     }
 
     public int getSpawnHeight() {

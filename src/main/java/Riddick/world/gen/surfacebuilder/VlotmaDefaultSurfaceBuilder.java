@@ -3,6 +3,7 @@ package Riddick.world.gen.surfacebuilder;
 import Riddick.block.Blocks;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -14,7 +15,6 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-
     public static final BlockState EARTH;
     public static final BlockState STONE_CASUAL;
     public static final BlockState GRAVEL;
@@ -94,6 +94,8 @@ public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceCo
 
         DEFAULT_VLOTMA_CONFIG = new TernarySurfaceConfig(EARTH, STONE_CASUAL, GRAVEL);
 
-        DEFAULT_VLOTMA = Registry.register(Registry.SURFACE_BUILDER, "vlotma_default", new VlotmaDefaultSurfaceBuilder(TernarySurfaceConfig::deserialize));
+        DEFAULT_VLOTMA = Registry.register(Registry.SURFACE_BUILDER,
+                new Identifier("vlotma", "surface_builder"),
+                new VlotmaDefaultSurfaceBuilder(TernarySurfaceConfig::deserialize));
     }
 }

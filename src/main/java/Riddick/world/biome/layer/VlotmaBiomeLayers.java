@@ -6,22 +6,11 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.layer.*;
-import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 import net.minecraft.world.level.LevelGeneratorType;
 
 import java.util.function.LongFunction;
 
 public class VlotmaBiomeLayers {
-    protected static final int WARM_OCEAN_ID;
-    protected static final int LUKEWARM_OCEAN_ID;
-    protected static final int OCEAN_ID;
-    protected static final int COLD_OCEAN_ID;
-    protected static final int FROZEN_OCEAN_ID;
-    protected static final int DEEP_WARM_OCEAN_ID;
-    protected static final int DEEP_LUKEWARM_OCEAN_ID;
-    protected static final int DEEP_OCEAN_ID;
-    protected static final int DEEP_COLD_OCEAN_ID;
-    protected static final int DEEP_FROZEN_OCEAN_ID;
 
     private static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> stack(long seed, ParentedLayer layer, LayerFactory<T> parent, int count, LongFunction<C> contextProvider) {
         LayerFactory<T> layerFactory = parent;
@@ -33,45 +22,73 @@ public class VlotmaBiomeLayers {
         return layerFactory;
     }
 
-    public static <T extends LayerSampler, C extends LayerSampleContext<T>> ImmutableList<LayerFactory<T>> build(LevelGeneratorType generatorType, VlotmaChunkGeneratorConfig settings, LongFunction<C> contextProvider) {
-        LayerFactory<T> layerFactory = ContinentLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(1L));
-        layerFactory = ScaleLayer.FUZZY.create((LayerSampleContext)contextProvider.apply(2000L), layerFactory);
-        layerFactory = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(1L), layerFactory);
-        layerFactory = ScaleLayer.NORMAL.create((LayerSampleContext)contextProvider.apply(2001L), layerFactory);
-        layerFactory = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(2L), layerFactory);
-        layerFactory = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(50L), layerFactory);
-        layerFactory = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(70L), layerFactory);
-        layerFactory = AddIslandLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(2L), layerFactory);
-        //LayerFactory<T> layerFactory2 = OceanTemperatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(2L));
-        //layerFactory2 = stack(2001L, ScaleLayer.NORMAL, layerFactory2, 6, contextProvider);
-        layerFactory = AddColdClimatesLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(2L), layerFactory);
-        //layerFactory = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(3L), layerFactory);
-        layerFactory = AddClimateLayers.AddTemperateBiomesLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(2L), layerFactory);
-        layerFactory = AddClimateLayers.AddCoolBiomesLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(2L), layerFactory);
-        layerFactory = AddClimateLayers.AddSpecialBiomesLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(3L), layerFactory);
-        //layerFactory = ScaleLayer.NORMAL.create((LayerSampleContext)contextProvider.apply(2002L), layerFactory);
-        //layerFactory = ScaleLayer.NORMAL.create((LayerSampleContext)contextProvider.apply(2003L), layerFactory);
-        layerFactory = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(4L), layerFactory);
-        //layerFactory = AddMushroomIslandLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(5L), layerFactory);
-        //layerFactory = AddDeepOceanLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(4L), layerFactory);
-        layerFactory = stack(1000L, ScaleLayer.NORMAL, layerFactory, 0, contextProvider);
-        int i = 6;
-        int j = i;
+    public static <T extends LayerSampler, C extends LayerSampleContext<T>> ImmutableList<LayerFactory<T>> build(LevelGeneratorType generatorType, VlotmaChunkGeneratorConfig settings, LongFunction<C> longFunction_1) {
+        LayerFactory<T> layerFactory_1 = ContinentLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1L));
+        layerFactory_1 = ScaleLayer.FUZZY.create((LayerSampleContext)longFunction_1.apply(2000L), layerFactory_1);
+        layerFactory_1 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1L), layerFactory_1);
+        layerFactory_1 = ScaleLayer.NORMAL.create((LayerSampleContext)longFunction_1.apply(2001L), layerFactory_1);
+        layerFactory_1 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(2L), layerFactory_1);
+        layerFactory_1 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(50L), layerFactory_1);
+        layerFactory_1 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(70L), layerFactory_1);
+        layerFactory_1 = AddIslandLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(2L), layerFactory_1);
+
+        layerFactory_1 = AddColdClimatesLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(2L), layerFactory_1);
+        layerFactory_1 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(3L), layerFactory_1);
+        layerFactory_1 = AddClimateLayers.AddTemperateBiomesLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(2L), layerFactory_1);
+        layerFactory_1 = AddClimateLayers.AddCoolBiomesLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(2L), layerFactory_1);
+        layerFactory_1 = AddClimateLayers.AddSpecialBiomesLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(3L), layerFactory_1);
+        layerFactory_1 = ScaleLayer.NORMAL.create((LayerSampleContext)longFunction_1.apply(2002L), layerFactory_1);
+        layerFactory_1 = ScaleLayer.NORMAL.create((LayerSampleContext)longFunction_1.apply(2003L), layerFactory_1);
+        layerFactory_1 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(4L), layerFactory_1);
+        layerFactory_1 = AddMushroomIslandLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(5L), layerFactory_1);
+        layerFactory_1 = AddDeepOceanLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(4L), layerFactory_1);
+        layerFactory_1 = stack(1000L, ScaleLayer.NORMAL, layerFactory_1, 0, longFunction_1);
+        int int_1 = 4;
+        int int_2 = int_1;
         if (settings != null) {
-            i = settings.getBiomeSize();
-            j = settings.getRiverSize();
+            int_1 = settings.getBiomeSize();
+            int_2 = settings.getRiverSize();
         }
 
-        return ImmutableList.of(layerFactory);
+        LayerFactory<T> layerFactory_3 = stack(1000L, ScaleLayer.NORMAL, layerFactory_1, 0, longFunction_1);
+        layerFactory_3 = SimpleLandNoiseLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(100L), layerFactory_3);
+        LayerFactory<T> layerFactory_4 = (new SetBaseBiomesLayer(generatorType, settings)).create((LayerSampleContext)longFunction_1.apply(200L), layerFactory_1);
+        layerFactory_4 = AddBambooJungleLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1001L), layerFactory_4);
+        layerFactory_4 = stack(1000L, ScaleLayer.NORMAL, layerFactory_4, 2, longFunction_1);
+        layerFactory_4 = EaseBiomeEdgeLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1000L), layerFactory_4);
+        LayerFactory<T> layerFactory_5 = stack(1000L, ScaleLayer.NORMAL, layerFactory_3, 2, longFunction_1);
+        layerFactory_4 = AddHillsLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1000L), layerFactory_4, layerFactory_5);
+        layerFactory_3 = stack(1000L, ScaleLayer.NORMAL, layerFactory_3, 2, longFunction_1);
+        layerFactory_3 = stack(1000L, ScaleLayer.NORMAL, layerFactory_3, int_2, longFunction_1);
+        layerFactory_3 = NoiseToRiverLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1L), layerFactory_3);
+        layerFactory_3 = SmoothenShorelineLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1000L), layerFactory_3);
+        layerFactory_4 = AddSunflowerPlainsLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1001L), layerFactory_4);
+
+        for(int int_3 = 0; int_3 < int_1; ++int_3) {
+            layerFactory_4 = ScaleLayer.NORMAL.create((LayerSampleContext)longFunction_1.apply((long)(1000 + int_3)), layerFactory_4);
+            if (int_3 == 0) {
+                layerFactory_4 = IncreaseEdgeCurvatureLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(3L), layerFactory_4);
+            }
+
+            if (int_3 == 1 || int_1 == 1) {
+                layerFactory_4 = AddEdgeBiomesLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1000L), layerFactory_4);
+            }
+        }
+
+        layerFactory_4 = SmoothenShorelineLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(1000L), layerFactory_4);
+        layerFactory_4 = AddRiversLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(100L), layerFactory_4, layerFactory_3);
+        LayerFactory<T> layerFactory_7 = CellScaleLayer.INSTANCE.create((LayerSampleContext)longFunction_1.apply(10L), layerFactory_4);
+
+        return ImmutableList.of(layerFactory_4, layerFactory_7, layerFactory_4);
     }
 
     public static BiomeLayerSampler[] build(long seed, LevelGeneratorType generatorType, VlotmaChunkGeneratorConfig settings) {
         ImmutableList<LayerFactory<CachingLayerSampler>> immutableList = build(generatorType, settings, (m) -> {
             return new CachingLayerContext(25, seed, m);
         });
-        BiomeLayerSampler biomeLayerSampler = new BiomeLayerSampler((LayerFactory)immutableList.get(0));
-        BiomeLayerSampler biomeLayerSampler2 = new BiomeLayerSampler((LayerFactory)immutableList.get(1));
-        BiomeLayerSampler biomeLayerSampler3 = new BiomeLayerSampler((LayerFactory)immutableList.get(2));
+        BiomeLayerSampler biomeLayerSampler = new BiomeLayerSampler(immutableList.get(0));
+        BiomeLayerSampler biomeLayerSampler2 = new BiomeLayerSampler(immutableList.get(1));
+        BiomeLayerSampler biomeLayerSampler3 = new BiomeLayerSampler(immutableList.get(2));
         return new BiomeLayerSampler[]{biomeLayerSampler, biomeLayerSampler2, biomeLayerSampler3};
     }
 
@@ -95,26 +112,5 @@ public class VlotmaBiomeLayers {
                 return false;
             }
         }
-    }
-
-    protected static boolean isOcean(int id) {
-        return id == WARM_OCEAN_ID || id == LUKEWARM_OCEAN_ID || id == OCEAN_ID || id == COLD_OCEAN_ID || id == FROZEN_OCEAN_ID || id == DEEP_WARM_OCEAN_ID || id == DEEP_LUKEWARM_OCEAN_ID || id == DEEP_OCEAN_ID || id == DEEP_COLD_OCEAN_ID || id == DEEP_FROZEN_OCEAN_ID;
-    }
-
-    protected static boolean isShallowOcean(int id) {
-        return id == WARM_OCEAN_ID || id == LUKEWARM_OCEAN_ID || id == OCEAN_ID || id == COLD_OCEAN_ID || id == FROZEN_OCEAN_ID;
-    }
-
-    static {
-        WARM_OCEAN_ID = Registry.BIOME.getRawId(Biomes.WARM_OCEAN);
-        LUKEWARM_OCEAN_ID = Registry.BIOME.getRawId(Biomes.LUKEWARM_OCEAN);
-        OCEAN_ID = Registry.BIOME.getRawId(Biomes.OCEAN);
-        COLD_OCEAN_ID = Registry.BIOME.getRawId(Biomes.COLD_OCEAN);
-        FROZEN_OCEAN_ID = Registry.BIOME.getRawId(Biomes.FROZEN_OCEAN);
-        DEEP_WARM_OCEAN_ID = Registry.BIOME.getRawId(Biomes.DEEP_WARM_OCEAN);
-        DEEP_LUKEWARM_OCEAN_ID = Registry.BIOME.getRawId(Biomes.DEEP_LUKEWARM_OCEAN);
-        DEEP_OCEAN_ID = Registry.BIOME.getRawId(Biomes.DEEP_OCEAN);
-        DEEP_COLD_OCEAN_ID = Registry.BIOME.getRawId(Biomes.DEEP_COLD_OCEAN);
-        DEEP_FROZEN_OCEAN_ID = Registry.BIOME.getRawId(Biomes.DEEP_FROZEN_OCEAN);
     }
 }

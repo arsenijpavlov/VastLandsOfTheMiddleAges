@@ -1,7 +1,6 @@
 package Riddick.world.biome.source;
 
 import Anno.Nullable;
-import Riddick.world.biome.layer.BiomeLayerSampler;
 import Riddick.world.biome.layer.VlotmaBiomeLayers;
 import Riddick.world.gen.chunk.VlotmaChunkGeneratorConfig;
 import com.google.common.collect.Sets;
@@ -9,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.layer.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelProperties;
@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static Riddick.world.biome.VlotmaBiomes.*;
+import static Riddick.world.biome.VlotmaBiomes.VLOTMA_OCEAN;
+import static Riddick.world.biome.VlotmaBiomes.VLOTMA_SURFACE;
 
 public class VlotmaLayeredBiomeSource extends BiomeSource {
     private final BiomeLayerSampler noiseLayer;
@@ -27,7 +28,9 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
 
     public VlotmaLayeredBiomeSource(VlotmaLayeredBiomeSourceConfig config) {
         //TODO
-        this.biomes = new Biome[]{VLOTMA_OCEAN, VLOTMA_SURFACE};
+        this.biomes = new Biome[]{
+                VLOTMA_OCEAN, VLOTMA_SURFACE
+        };
 
         LevelProperties levelProperties = config.getLevelProperties();
         VlotmaChunkGeneratorConfig vlotmaChunkGeneratorConfig = config.getGeneratorSettings();
@@ -35,6 +38,10 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
         this.noiseLayer = biomeLayerSamplers[0];
         this.biomeLayer = biomeLayerSamplers[1];
     }
+
+    /*public List<Biome> getSpawnBiomes() {
+        return Lists.newArrayList(VLOTMA_SURFACE, VLOTMA_OCEAN);
+    }*/
 
     public Biome getBiome(int x, int z) {
         return this.biomeLayer.sample(x, z);
