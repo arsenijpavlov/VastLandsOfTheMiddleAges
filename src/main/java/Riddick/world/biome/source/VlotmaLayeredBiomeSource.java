@@ -3,11 +3,11 @@ package Riddick.world.biome.source;
 import Anno.Nullable;
 import Riddick.world.biome.layer.VlotmaBiomeLayers;
 import Riddick.world.gen.chunk.VlotmaChunkGeneratorConfig;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.layer.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -39,9 +39,10 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
         this.biomeLayer = biomeLayerSamplers[1];
     }
 
-    /*public List<Biome> getSpawnBiomes() {
+    @Override
+    public List<Biome> getSpawnBiomes() {
         return Lists.newArrayList(VLOTMA_SURFACE, VLOTMA_OCEAN);
-    }*/
+    }
 
     public Biome getBiome(int x, int z) {
         return this.biomeLayer.sample(x, z);

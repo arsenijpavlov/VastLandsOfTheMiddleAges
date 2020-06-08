@@ -20,7 +20,7 @@ public class Blocks {
     //генерация мира
     public static final Block EARTH = new FallingBlock(FabricBlockSettings.of(Material.EARTH).sounds(BlockSoundGroup.SAND).strength(0.5F, 0.0F).build());//альтернатива земле
     public static final Block GRAVEL = new FallingBlock(FabricBlockSettings.of(Material.SAND).sounds(BlockSoundGroup.GRAVEL).strength(0.6F,0.0F).build());
-    public static final Block STONE_CASUAL = new FallingBlock(FabricBlockSettings.of(Material.STONE).strength(1.5F, 6.0F).build());//альтернатива обычному камню
+    public static final Block STONE_CASUAL = new Block(FabricBlockSettings.of(Material.STONE).strength(1.5F, 6.0F).build());//альтернатива обычному камню
     public static final Block SAND_RIVER = new FallingBlock(FabricBlockSettings.of(Material.SAND).sounds(BlockSoundGroup.SAND).strength(0.5F,0.0F).build());
     public static final Block EARTH_CLAY = new Block(FabricBlockSettings.of(Material.EARTH).sounds(BlockSoundGroup.GRAVEL).strength(0.8F,0.0F).build());
     public static final Block COAL_BLOCK = new FallingBlock(FabricBlockSettings.of(Material.STONE).sounds(BlockSoundGroup.STONE).strength(2.0F, 7F).build());
