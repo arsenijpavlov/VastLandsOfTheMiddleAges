@@ -8,12 +8,15 @@ import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
-public final class VlotmaPlains extends Biome {
+import static Riddick.world.gen.surfacebuilder.VlotmaDefaultSurfaceBuilder.DEFAULT_VLOTMA_CONFIG_2;
 
-    protected VlotmaPlains() {
-        super((new Settings()).configureSurfaceBuilder(VlotmaDefaultSurfaceBuilder.DEFAULT_VLOTMA, SurfaceBuilder.GRASS_CONFIG)
+public final class VlotmaPlainsBiome extends Biome {
+
+    protected VlotmaPlainsBiome() {
+        super((new Settings()).configureSurfaceBuilder(VlotmaDefaultSurfaceBuilder.DEFAULT_VLOTMA, DEFAULT_VLOTMA_CONFIG_2)
                 .precipitation(Precipitation.RAIN).category(Category.PLAINS)
-                .depth(0.125F).scale(0.05F).temperature(0.8F).downfall(0.4F)
+                //.depth(0.125F).scale(0.05F).temperature(0.8F).downfall(0.4F)
+                .depth(5.125F).scale(0.05F).temperature(0.8F).downfall(0.4F)
                 .waterColor(4159204).waterFogColor(329011).parent((String) null));
 
     }

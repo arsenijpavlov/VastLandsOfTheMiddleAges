@@ -52,24 +52,6 @@ public class VlotmaDimension extends Dimension {
         BlockState blockState = Blocks.STONE_CASUAL.getDefaultState();
         BlockState blockState2 = WATER.getDefaultState();
 
-        /*
-        JsonObject jsonObject_4 = jsonObject_1.getAsJsonObject("chunk_generator");
-        if (jsonObject_4 != null && jsonObject_4.has("options")) {
-            BiomeSourceType<?, ?> biomeSourceType_4 = Registry.BIOME_SOURCE_TYPE.get(new Identifier(jsonObject_2.getAsJsonPrimitive("type").getAsString()));
-            JsonObject jsonObject_5 = jsonObject_4.getAsJsonObject("options");
-            String string;
-            if (jsonObject_5.has("default_block")) {
-                string = jsonObject_5.getAsJsonPrimitive("default_block").getAsString();
-                blockState = Registry.BLOCK.get(new Identifier(string)).getDefaultState();
-            }
-
-            if (jsonObject_5.has("default_fluid")) {
-                string = jsonObject_5.getAsJsonPrimitive("default_fluid").getAsString();
-                blockState = Registry.BLOCK.get(new Identifier(string)).getDefaultState();
-            }
-        }
-        */
-
         VlotmaChunkGeneratorConfig vlotmaChunkGeneratorConfig = chunkGeneratorType.createSettings();
         vlotmaChunkGeneratorConfig.setDefaultBlock(blockState);
         vlotmaChunkGeneratorConfig.setDefaultFluid(blockState2);

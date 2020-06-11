@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static Riddick.world.biome.VlotmaBiomes.VLOTMA_OCEAN;
-import static Riddick.world.biome.VlotmaBiomes.VLOTMA_SURFACE;
+import static Riddick.world.biome.VlotmaBiomes.*;
 
 public class VlotmaLayeredBiomeSource extends BiomeSource {
     private final BiomeLayerSampler noiseLayer;
@@ -29,7 +28,7 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
     public VlotmaLayeredBiomeSource(VlotmaLayeredBiomeSourceConfig config) {
         //TODO
         this.biomes = new Biome[]{
-                VLOTMA_OCEAN, VLOTMA_SURFACE
+                VLOTMA_OCEAN, VLOTMA_SURFACE, VLOTMA_SEA
         };
 
         LevelProperties levelProperties = config.getLevelProperties();
@@ -41,7 +40,7 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
 
     @Override
     public List<Biome> getSpawnBiomes() {
-        return Lists.newArrayList(VLOTMA_SURFACE, VLOTMA_OCEAN);
+        return Lists.newArrayList(VLOTMA_SURFACE, VLOTMA_SEA);
     }
 
     public Biome getBiome(int x, int z) {
