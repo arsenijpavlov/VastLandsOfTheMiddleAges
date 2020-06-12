@@ -14,6 +14,8 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 import java.util.Random;
 import java.util.function.Function;
 
+import static net.minecraft.block.Blocks.GLOWSTONE;
+
 public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
     public static final BlockState EARTH;
     public static final BlockState STONE_CASUAL;
@@ -92,6 +94,7 @@ public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceCo
 
     static {
         EARTH = Blocks.EARTH.getDefaultState();
+        //EARTH = GLOWSTONE.getDefaultState();
         STONE_CASUAL = Blocks.STONE_CASUAL.getDefaultState();
         GRAVELI = Blocks.GRAVEL.getDefaultState();
         SAND_SEA = Blocks.SAND_SEA.getDefaultState();
