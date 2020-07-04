@@ -39,22 +39,21 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
     }
 
     @Override
-    public List<Biome> getSpawnBiomes() {
-        return Lists.newArrayList(VLOTMA_SURFACE, VLOTMA_SEA);
-    }
-
     public Biome getBiome(int x, int z) {
         return this.biomeLayer.sample(x, z);
     }
 
+    @Override
     public Biome getBiomeForNoiseGen(int x, int z) {
         return this.noiseLayer.sample(x, z);
     }
 
+    @Override
     public Biome[] sampleBiomes(int x, int z, int width, int height, boolean bl) {
         return this.biomeLayer.sample(x, z, width, height);
     }
 
+    @Override
     public Set<Biome> getBiomesInArea(int x, int z, int radius) {
         int i = x - radius >> 2;
         int j = z - radius >> 2;
@@ -67,7 +66,7 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
         return set;
     }
 
-    @Nullable
+    @Override
     public BlockPos locateBiome(int x, int z, int radius, List<Biome> biomes, Random random) {
         int i = x - radius >> 2;
         int j = z - radius >> 2;
@@ -94,30 +93,18 @@ public class VlotmaLayeredBiomeSource extends BiomeSource {
         return blockPos;
     }
 
+    @Override
     public boolean hasStructureFeature(StructureFeature<?> feature) {
-        return (Boolean)this.structureFeatures.computeIfAbsent(feature, (structureFeature) -> {
-            Biome[] var2 = this.biomes;
-            int var3 = var2.length;
-
-            for(int var4 = 0; var4 < var3; ++var4) {
-                Biome biome = var2[var4];
-                if (biome.hasStructureFeature(structureFeature)) {
-                    return true;
-                }
-            }
-
-            return false;
-        });
+        return false;
     }
 
+    @Override
     public Set<BlockState> getTopMaterials() {
         if (this.topMaterials.isEmpty()) {
             Biome[] var1 = this.biomes;
-            int var2 = var1.length;
 
-            for(int var3 = 0; var3 < var2; ++var3) {
-                Biome biome = var1[var3];
-                this.topMaterials.add(biome.getSurfaceConfig().getTopMaterial());
+            for (Biome biome_1 : var1) {
+                this.topMaterials.add(biome_1.getSurfaceConfig().getTopMaterial());
             }
         }
 

@@ -16,14 +16,24 @@ public enum AddSeaLayer implements CrossSamplingLayer {
         int diag_3 = this.transformZ(int_1 + 1);
         int diag_4 = this.transformZ(int_1 - 1);
         if(int_5 == OCEAN_ID) {
-            if (int_1 == SURFACE_ID ||
+            if (
+                    int_1 == SURFACE_ID ||
                     int_2 == SURFACE_ID ||
                     int_3 == SURFACE_ID ||
                     int_4 == SURFACE_ID ||
                     diag_1 == SURFACE_ID ||
                     diag_2 == SURFACE_ID ||
                     diag_3 == SURFACE_ID ||
-                    diag_4 == SURFACE_ID ) {
+                    diag_4 == SURFACE_ID ||
+                    int_1 == SEA_ID ||
+                    int_2 == SEA_ID ||
+                    int_3 == SEA_ID ||
+                    int_4 == SEA_ID ||
+                    diag_1 == SEA_ID ||
+                    diag_2 == SEA_ID ||
+                    diag_3 == SEA_ID ||
+                    diag_4 == SEA_ID
+            ) {
                 return SEA_ID;
             }
             return OCEAN_ID;

@@ -15,11 +15,17 @@ public class Items{
     public static final Item BUCKET_SEA = new BucketItem(
             SEA_STILL, new Item.Settings().group(ItemGroup.MISC).recipeRemainder(net.minecraft.item.Items.BUCKET).maxCount(1));
 
+    public static final Item MAPPING = new CreateMapItem(new Item.Settings().group(ItemGroup.MISC));
+    public static final Item FIND_LAND = new FindLandItem(new Item.Settings().group(ItemGroup.MISC));
+
     public static void onInitialize(){
         Registry.register(Registry.ITEM, new Identifier("vlotma", "pile_earth"), PILE_EARTH);
         Registry.register(Registry.ITEM, new Identifier("vlotma","anchor"), ANCHOR);
         Registry.register(Registry.ITEM, new Identifier("vlotma", "crystall"), CRYSTALL);
         //Ведро
         Registry.register(Registry.ITEM, new Identifier("vlotma", "bucket_sea"), BUCKET_SEA);
+
+        Registry.register(Registry.ITEM, new Identifier("vlotma", "mapping"), MAPPING);
+        Registry.register(Registry.ITEM, new Identifier("vlotma", "find_land"), FIND_LAND);
     }
 }

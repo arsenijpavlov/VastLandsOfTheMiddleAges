@@ -46,6 +46,8 @@ public class WorkbenchRight extends HorizontalFacingBlock {
         return blockState_1.with(FACING, blockRotation_1.rotate(blockState_1.get(FACING)));
     }
 
+
+
     protected static final VoxelShape NORTH_COLLISION_SHAPE = VoxelShapes.union(
             Block.createCuboidShape(0F, 13F, 0F, 14F, 15F, 16F),    //столешница
             Block.createCuboidShape(10F, 0F, 1F, 12F, 13F, 3F),     //дальняя ножка

@@ -13,10 +13,9 @@ public enum VlotmaContinentLayer implements InitLayer {
     INSTANCE;
 
     public int sample(LayerRandomnessSource layerRandomnessSource_1, int int_1, int int_2) {
-        if (int_1 == 0 && int_2 == 0) {
-            return SURFACE_ID;
-        } else {
-            return layerRandomnessSource_1.nextInt(10) == 0 ? SURFACE_ID : OCEAN_ID;
-        }
+        //if (int_1 == 0 && int_2 == 0)
+        //    return SURFACE_ID;
+        //else
+            return layerRandomnessSource_1.nextInt(10) == 0 ? Registry.BIOME.getRawId(VLOTMA_SURFACE) : Registry.BIOME.getRawId(VLOTMA_OCEAN);
     }
 }

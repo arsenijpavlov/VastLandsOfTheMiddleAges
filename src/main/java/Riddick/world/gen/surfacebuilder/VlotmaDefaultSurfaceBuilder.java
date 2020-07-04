@@ -21,7 +21,7 @@ public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceCo
     public static final BlockState STONE_CASUAL;
     public static final BlockState GRAVELI;
     public static final BlockState SAND_SEA;
-    public static final TernarySurfaceConfig DEFAULT_VLOTMA_CONFIG_1;
+    public static final TernarySurfaceConfig DEFAULT_VLOTMA_CONFIG_OCEAN;
     public static final TernarySurfaceConfig DEFAULT_VLOTMA_CONFIG_2;
     public static final TernarySurfaceConfig DEFAULT_VLOTMA_CONFIG_3;
     public static final SurfaceBuilder<TernarySurfaceConfig> DEFAULT_VLOTMA;
@@ -93,13 +93,13 @@ public class VlotmaDefaultSurfaceBuilder extends SurfaceBuilder<TernarySurfaceCo
     }
 
     static {
-        EARTH = Blocks.EARTH.getDefaultState();
-        //EARTH = GLOWSTONE.getDefaultState();
+        //EARTH = Blocks.EARTH.getDefaultState();
+        EARTH = GLOWSTONE.getDefaultState();
         STONE_CASUAL = Blocks.STONE_CASUAL.getDefaultState();
         GRAVELI = Blocks.GRAVEL.getDefaultState();
         SAND_SEA = Blocks.SAND_SEA.getDefaultState();
 
-        DEFAULT_VLOTMA_CONFIG_1 = new TernarySurfaceConfig(EARTH, STONE_CASUAL, GRAVELI);
+        DEFAULT_VLOTMA_CONFIG_OCEAN = new TernarySurfaceConfig(GRAVELI, STONE_CASUAL, GRAVELI);
         DEFAULT_VLOTMA_CONFIG_2 = new TernarySurfaceConfig(EARTH, STONE_CASUAL, EARTH);
         DEFAULT_VLOTMA_CONFIG_3 = new TernarySurfaceConfig(EARTH, STONE_CASUAL, SAND_SEA);
 

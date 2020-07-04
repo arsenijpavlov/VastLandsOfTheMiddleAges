@@ -1,26 +1,17 @@
 package Riddick.world.gen.chunk;
 
-import net.minecraft.entity.EntityCategory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.SystemUtil;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.OctavePerlinNoiseSampler;
-import net.minecraft.village.ZombieSiegeManager;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.gen.CatSpawner;
 import net.minecraft.world.gen.ChunkRandom;
-import net.minecraft.world.gen.PhantomSpawner;
-import net.minecraft.world.gen.PillagerSpawner;
 import net.minecraft.world.gen.chunk.SurfaceChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.level.LevelGeneratorType;
-
-import java.util.List;
 
 public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGeneratorConfig> {
     private static final float[] BIOME_WEIGHT_TABLE = SystemUtil.consume(new float[25], (fs) -> {
@@ -38,7 +29,7 @@ public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGener
         super(world, biomeSource, 4, 8, 256, config, true);
         this.random.consume(2620);
         this.noiseSampler = new OctavePerlinNoiseSampler(this.random, 16);
-        this.amplified = world.getLevelProperties().getGeneratorType() == LevelGeneratorType.DEFAULT;
+        this.amplified = world.getLevelProperties().getGeneratorType() == LevelGeneratorType.AMPLIFIED;
     }
 
     public void populateEntities(ChunkRegion region) {
@@ -55,14 +46,14 @@ public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGener
         double e = 684.4119873046875D;
         double f = 8.555149841308594D;
         double g = 4.277574920654297D;
-        //int i = true;
-        //int j = true;
-        this.sampleNoiseColumn(buffer, x, z, 684.4119873046875D, 684.4119873046875D, 8.555149841308594D, 4.277574920654297D, 3, -10);
+        int i = 3;
+        int j = -10;
+        this.sampleNoiseColumn(buffer, x, z, d, e, f, g, i, j);
     }
 
     protected double computeNoiseFalloff(double depth, double scale, int y) {
         double d = 8.5D;
-        double e = ((double)y - (8.5D + depth * 8.5D / 8.0D * 4.0D)) * 12.0D * 128.0D / 256.0D / scale;
+        double e = ((double)y - (d + depth * d / 8.0D * 4.0D)) * 12.0D * 128.0D / 256.0D / scale;
         if (e < 0.0D) {
             e *= 4.0D;
         }
@@ -104,12 +95,12 @@ public class VlotmaChunkGenerator extends SurfaceChunkGenerator<VlotmaChunkGener
         f = f * 0.9F + 0.1F;
         g = (g * 4.0F - 1.0F) / 8.0F;
         ds[0] = (double)g + this.sampleNoise(x, z);
-        ds[1] = (double)f;
+        ds[1] = f;
         return ds;
     }
 
     private double sampleNoise(int x, int y) {
-        double d = this.noiseSampler.sample((double)(x * 200), 10.0D, (double)(y * 200), 1.0D, 0.0D, true) / 8000.0D;
+        double d = this.noiseSampler.sample(x * 200, 10.0D, y * 200, 1.0D, 0.0D, true) / 8000.0D;
         if (d < 0.0D) {
             d = -d * 0.3D;
         }
